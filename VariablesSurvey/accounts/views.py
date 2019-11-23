@@ -56,3 +56,5 @@ def logout(request):
     auth.logout(request)
     return redirect('/')
 
+def helios(request):
+    return render(request, 'helios.html')
