@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8'>
-        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Home</title>
-        <meta name='viewport' content='width=device-width', initial-scale=1>
-        <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-        <script src='main.js'></script>
-    </head>
-    <body>
+{% extends 'helios.html' %}
+  {% block head %}
+  {% endblock %}
+
+  {% block links %}
+<li><a href='register'>Register</a></li>
+<li><a href='/'>Home</a></li>
+
+  {% endblock %}
+
+  {% block login %}
         <form action="login" method="post">
             {% csrf_token %}
             <input type="text" name="username" placeholder="username"><br>
@@ -20,5 +20,4 @@
                 <h3>{{message}}</h3>
                 {%endfor%}
         </div>
-    </body>
-</html>
+    {% endblock %}
