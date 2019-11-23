@@ -1,4 +1,7 @@
 {% extends 'helios.html' %}
+{% block links %}
+<li><a href="/">Go back</a></li>
+{% endblock %}
 {% block login %}
         <form action="register" method="post">
             {% csrf_token %}
