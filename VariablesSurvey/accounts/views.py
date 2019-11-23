@@ -28,7 +28,10 @@ def register(request):
         password = request.POST['password']
         verify = request.POST['verify']
         email = request.POST['Email']
-        if password == verify:
+        if first_name == "" or last_name == "" or username == "" or password == "" or verify == "" or email == "":
+            messages.info(request, 'make sure you fill all fields!')
+            return render(request, 'register.html')
+        elif password == verify:
             if User.objects.filter(username=username).exists():
                 messages.info(request, 'username taken')
                 return render(request, 'register.html')
