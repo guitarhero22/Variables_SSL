@@ -6,7 +6,7 @@
 {% block login %}
     {% if user.is_authenticated %}
         <h3>Hello, {{user.first_name}}</h3><br>
-        <a href="Profile">{{user.first_name}}</a><br>
+        <a href="profile">Edit your info, {{user.first_name}}</a><br>
         <a href="logout">Logout</a><br>
         <a href="create">Create form</a><br>
         <a href="deactivate">Deactivate form</a><br>

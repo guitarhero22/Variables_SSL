@@ -4,11 +4,12 @@
 {% endblock %}
 {% block login %}
 {% if user.is_authenticated %}
-        <form action="register" method="post">
+        <form action="profile" method="post">
             {% csrf_token %}
             <input type="text" name="Firstname" placeholder="firstname"><br>
             <input type="text" name="Lastname" placeholder="lastname"><br>
             <input type="email" name="Email" placeholder="email-id"><br>
+            <input type="password" name="opassword" placeholder="old password"><br>
             <input type="password" name="password" placeholder="new password"><br>
             <input type="password" name="verify" placeholder="confirm"><br>
             <input type="Submit">

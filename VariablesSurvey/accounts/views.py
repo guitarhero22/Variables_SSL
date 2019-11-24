@@ -64,29 +64,33 @@ def profile(request):
         first_name = request.POST['Firstname']
         last_name = request.POST['Lastname']
         username = request.user
-        password = request.POST['new password']
-        verify = request.POST['confirm']
+        password = request.POST['password']
+        opassword = request.POST['opassword']
+        verify = request.POST['verify']
         email = request.POST['Email']
-        if first_name == "" or last_name == "" or password == "" or verify == "" or email == "":
+        if first_name == "" or last_name == "" or password == "" or verify == "":
             messages.info(request, 'make sure you fill all fields!')
             return render(request, 'profile.html')
         elif password == verify:
             
             if User.objects.filter(email=email).exists():
-                messages.info(request, 'email taken')
+                messages.info(request, 'email taken, leave blank if no change')
                 return render(request, 'profile.html')
             else:
-                users = User.objects.filter(username=username)
+                user = auth.authenticate(username=username, password=opassword)
                 
-                for user in users:
+                if user is not None:
                     user.first_name = first_name
                     user.last_name = last_name
-                    user.email = email
+                    if email != "":
+                        user.email = email
                     user.password = password
                     user.save()
+                    
+                    auth.login(request, user)
                     return redirect('home')
         else:
             messages.info(request, 'make sure you verify your password!')
-            return render(request, 'register.html')
+            return render(request, 'profile.html')
     else:
-        return render(request, 'register.html')
+        return render(request, 'profile.html')
