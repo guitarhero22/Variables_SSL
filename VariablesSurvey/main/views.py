@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import IntegrityError
 from .models import Form
+from django.db import models
 
 # Create your views here.
 
@@ -33,6 +34,18 @@ def deactivate(request):
 		form_name = request.POST['form_name']
 		form_code = request.POST['form_code']
 		creator = request.user
+		form = Form.objects.filter(form_name=form_name, form_code=form_code, creator=creator, active=True)
+		if not form.exists():
+			messages.info(request, 'that is not possible with these credentials')
+			return render(request, 'deactivate.html')
+		else:
+			for f in form:
+				f.active = False
+				f.save()
+			return render(request, 'index.html')
+
+	else:
+		return render(request, 'deactivate.html')
 
 
 def home(request):
