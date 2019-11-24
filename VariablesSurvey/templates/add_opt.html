@@ -1,13 +1,27 @@
 {% extends 'helios.html' %}
 
 {% block links %}
+<li><a href="/build/{{form_name}}">Done</a></li>
 {% endblock %}
 
 {% block login %}
-<form method="post" action="/add_opt/{{q_id}}/{{opt_type}}">
+<form method="post" action="/add_opt/{{q_id}}/{{opt_type}}/">
   {% csrf_token %}
   <input type="text" name="content" placeholder="option"></input>
-  
+
 <button type='submit' name="Save">Save</button>
 </form>
+
+<table>
+<tr>
+  <th>Order</th>
+  <td>Choice</td>
+</tr>
+{% for option in options %}
+<tr>
+  <th>{{option.opt_order}}</th>
+  <td>{{option.opt_content}}</td>
+</tr>
+{% endfor %}
+</table>
 {% endblock %}

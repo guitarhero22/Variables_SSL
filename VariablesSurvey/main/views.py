@@ -127,7 +127,7 @@ def add_q(request, form_name, q_type):
 
             if content == "" or max_length == "":
                 messages.info(request, 'please fill all the fields')
-                return redirect('add_q/'+form_name+'/'+q_type)
+                return redirect('/add_q/'+form_name+'/'+q_type)
 
             order = 1 + question.objects.filter(form_id = form.id).count()
             quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=int(max_length), order = order)
@@ -145,8 +145,8 @@ def add_q(request, form_name, q_type):
             quest.save()
             caller = question.objects.get(order=order,form_id=form)
             qid = str(caller.id)
-    
-            return redirect('/add_opt/'+qid+'/'+q_type)
+
+            return redirect('/add_opt/' + qid + '/' + q_type + '/')
 
         return redirect('/build/' + form_name)
 
@@ -155,18 +155,16 @@ def add_opt(request, q_id, opt_type):
         return redirect('login')
 
     questio = question.objects.get(id=q_id)
-    if not questio.form.creator == request.user:
+    if not questio.form_id.creator == request.user:
         return HttpResponse('Cannot edit this form sorry')
-    num = option.objects.filter(q_id=questio)
-
-    
+    opts = option.objects.filter(q_id=questio)
 
     if request.method == 'GET':
-        return render(request, 'add_opt.html', {'q_id': q_id, 'opt_type': opt_type})
+        return render(request, 'add_opt.html', {'q_id': q_id, 'opt_type': opt_type , 'form_name': questio.form_id.form_name, 'options' : opts})
     else:
         opt_content = request.POST['content']
         q_id = int(q_id)
         order = 1+ option.objects.filter(q_id=questio).count()
-        optio = option(q_id=q_id, opt_content=opt_content, opt_type=opt_type, order=order)
+        optio = option(q_id=questio, opt_content=opt_content, opt_type=opt_type, opt_order=order)
         optio.save()
-        return redirect('/add_opt/'+str(q_id)+'/'+opt_type)
+        return redirect('/add_opt/'+str(q_id)+'/'+opt_type+'/')
