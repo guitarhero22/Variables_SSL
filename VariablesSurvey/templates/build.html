@@ -1,8 +1,25 @@
-{% extends 'base.html' %}
+{% extends 'helios.html' %}
 
 {% block head %}
 {% endblock %}
 
-{% block body %}
-<button type="button" name="button">Add</button>
+{% block links %}
+<li>
+ADD
+<ul>
+    <li><a href="add_q/{{form_code}}/single">Single Line</a></li>
+    <li><a href="add_q/{{form_code}}/paragraph">Paragraph</a></li>
+    <li><a href="add_q/{{form_code}}/radio">Radio Type</a></li>
+    <li><a href="add_q/{{form_code}}/check">Check Box</a></li>
+    <li><a href="add_q/{{form_code}}/dropdwn">Drop Down</a></li>
+    <li><a href="add_q/{{form_code}}/toggle">Toggle</a></li>
+    <li><a href="add_q/{{form_code}}/scale"">Scale</a></li>
+</ul>
+</li>
+{% endblock %}
+
+{% block login %}
+<table>
+
+</table>
 {% endblock %}

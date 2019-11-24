@@ -19,7 +19,7 @@ def create(request):
 			try:
 				form = Form(form_code=form_code, form_name=form_name, creator=creator)
 				form.save()
-				return render(request, 'index.html')
+				return render(request, 'build.html', {'form_code': form_code})
 			except IntegrityError as e:
 				messages.info(request, 'try another unique name')
 				return render(request, 'create.html')
@@ -77,3 +77,6 @@ def answer(request):
 
 def build(request):
     return render(request, 'build.html')
+
+def add_q(request, form_code, q_type):
+    return render(request, 'add_q.html')
