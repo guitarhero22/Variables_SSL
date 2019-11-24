@@ -1,0 +1,26 @@
+{% extends 'helios.html' %}
+{% block links %}
+<li><a href="/">Go back</a></li>
+{% endblock %}
+{% block login %}
+{% if user.is_authenticated %}
+        <form action="register" method="post">
+            {% csrf_token %}
+            <input type="text" name="Firstname" placeholder="firstname"><br>
+            <input type="text" name="Lastname" placeholder="lastname"><br>
+            <input type="email" name="Email" placeholder="email-id"><br>
+            <input type="password" name="password" placeholder="new password"><br>
+            <input type="password" name="verify" placeholder="confirm"><br>
+            <input type="Submit">
+        </form>
+        <div>
+               
+                {%for message in messages%}
+                <h3>{{message}}</h3>
+                {%endfor%}
+        </div>
+        {%else%}
+        <a href="login">Login</a><br>
+        <a href="register">Register</a><br>
+        {% endif %}
+{% endblock %}

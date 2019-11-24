@@ -58,3 +58,35 @@ def logout(request):
 
 def helios(request):
     return render(request, 'helios.html')
+
+def profile(request):
+    if request.method == 'POST':
+        first_name = request.POST['Firstname']
+        last_name = request.POST['Lastname']
+        username = request.user
+        password = request.POST['new password']
+        verify = request.POST['confirm']
+        email = request.POST['Email']
+        if first_name == "" or last_name == "" or password == "" or verify == "" or email == "":
+            messages.info(request, 'make sure you fill all fields!')
+            return render(request, 'profile.html')
+        elif password == verify:
+            
+            if User.objects.filter(email=email).exists():
+                messages.info(request, 'email taken')
+                return render(request, 'profile.html')
+            else:
+                users = User.objects.filter(username=username)
+                
+                for user in users:
+                    user.first_name = first_name
+                    user.last_name = last_name
+                    user.email = email
+                    user.password = password
+                    user.save()
+                    return redirect('home')
+        else:
+            messages.info(request, 'make sure you verify your password!')
+            return render(request, 'register.html')
+    else:
+        return render(request, 'register.html')
