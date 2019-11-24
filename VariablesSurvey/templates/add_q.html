@@ -4,7 +4,9 @@
 {% endblock %}
 
 {% block login %}
-<form method='post' action='add_q/{{form_name}}/{{q_type}}'>
+<form method="post" action="">
+  {% csrf_token %}
+  {{form_name}}
 <input type="text" name="q_name" placeholder="Question Name"><br>
 {% if q_type == "single" %}
 <input type="text" name="d_type" placeholder="Input Type"><br>
