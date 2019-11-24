@@ -1,6 +1,10 @@
 {% extends 'helios.html' %}
 
+{% load static %}
+
+
 {% block head %}
+  <link rel="stylesheet" href="{% static 'css/build.css' %}">
 {% endblock %}
 
 {% block links %}
@@ -18,7 +22,7 @@ ADD
 </li>
 {% endblock %}
 {% block login %}
-<table style="border:1pt solid">
+<table>
 <tr>
   <th>Order</th>
   <td>Type</td>
