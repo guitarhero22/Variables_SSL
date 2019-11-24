@@ -55,12 +55,7 @@ def deactivate(request):
 
 
 def home(request):
-	if request.user.is_authenticated:
-		forms = Form.objects.filter(creator=request.user)
-		for form in forms:
-			messages.info(request, form.form_name)
-	return render(request, 'index.html')
-    
+    return render(request, 'index.html')
 
 
 def respond(request):
@@ -121,8 +116,8 @@ def add_q(request, form_name, q_type):
                 messages.info(request, 'please fill all the fields')
                 return redirect('/add_q/' + form_name + '/' + q_type)
 
-            order = 1 + question.objects.filter(form_id=form.id).count()
-            quest = question(form_id = form.form_id, q_type = q_type, d_type = d_type, visible = True, content=content, max_length=int(max_length), order = order)
+            order = 1 + question.objects.filter(form_id = form.id).count()
+            quest = question(form_id = form, q_type = q_type, d_type = d_type, visible = True, content=content, max_length=int(max_length), order = order)
             quest.save()
 
         return redirect('/build/' + form_name)

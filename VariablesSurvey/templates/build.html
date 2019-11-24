@@ -17,7 +17,8 @@ ADD
 </ul>
 </li>
 {% endblock %}
-<table>
+{% block login %}
+<table style="border:1pt solid">
 <tr>
   <th>Order</th>
   <td>Type</td>
@@ -32,5 +33,5 @@ ADD
 {% endfor %}
 </table>
 
-{% block login %}
+
 {% endblock %}
