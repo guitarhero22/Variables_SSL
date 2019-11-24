@@ -133,7 +133,7 @@ def add_q(request, form_name, q_type):
             quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=int(max_length), order = order)
             quest.save()
 
-        if q_type == 'radio':
+        if q_type == 'radio' or q_type == 'check':
             content = request.POST['content']
 
             if content == "":
