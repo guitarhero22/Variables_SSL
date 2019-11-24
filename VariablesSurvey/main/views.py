@@ -8,6 +8,9 @@ from django.http import HttpResponse
 
 
 def create(request):
+	if not request.user.is_authenticated:
+		return redirect('home')
+        
 	if request.method == 'POST':
 		creator = request.user
 		form_name = request.POST['form_name']
@@ -30,6 +33,9 @@ def create(request):
 
 
 def deactivate(request):
+	if not request.user.is_authenticated:
+		return redirect('home')
+        
 	if request.method == 'POST':
 		form_name = request.POST['form_name']
 		form_code = request.POST['form_code']
@@ -53,6 +59,9 @@ def home(request):
 
 
 def respond(request):
+	if not request.user.is_authenticated:
+		return redirect('home')
+        
 	if request.method == 'POST':
 		form_name = request.POST['form_name']
 		form_code = request.POST['form_code']

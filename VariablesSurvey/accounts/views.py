@@ -62,6 +62,8 @@ def helios(request):
     return render(request, 'helios.html')
 
 def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         first_name = request.POST['Firstname']
         last_name = request.POST['Lastname']
@@ -93,6 +95,8 @@ def profile(request):
         return render(request, 'profile.html')
 
 def change_password(request):
+    if not request.user.is_authenticated:
+        return redirect('home')
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
