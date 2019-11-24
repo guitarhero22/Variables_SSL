@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import auth, User
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from main.models import Form
 
 # Create your views here.
 
@@ -13,7 +14,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return render(request, 'index.html')
+            return redirect('/')
         else:
             messages.info(request, 'Invalid credentials')
             return redirect('login')
@@ -52,6 +53,10 @@ def register(request):
         return render(request, 'register.html')
 
 def home(request):
+    if request.user.is_authenticated:
+        forms = Form.objects.filter(creator=request.user)
+        for form in forms:
+            messages.info(request, form.form_name)
     return render(request, 'index.html')
 
 def logout(request):
@@ -102,7 +107,7 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
+            
             return redirect('home')
         else:
             pass
