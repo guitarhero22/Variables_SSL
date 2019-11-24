@@ -64,33 +64,28 @@ def profile(request):
         first_name = request.POST['Firstname']
         last_name = request.POST['Lastname']
         username = request.user
-        password = request.POST['password']
-        opassword = request.POST['opassword']
-        verify = request.POST['verify']
+        
         email = request.POST['Email']
-        if first_name == "" or last_name == "" or password == "" or verify == "":
-            messages.info(request, 'make sure you fill all fields!')
-            return render(request, 'profile.html')
-        elif password == verify:
+        
             
-            if User.objects.filter(email=email).exists():
-                messages.info(request, 'email taken, leave blank if no change')
-                return render(request, 'profile.html')
-            else:
-                user = auth.authenticate(username=username, password=opassword)
-                
-                if user is not None:
-                    user.first_name = first_name
-                    user.last_name = last_name
-                    if email != "":
-                        user.email = email
-                    user.password = password
-                    user.save()
-                    
-                    auth.login(request, user)
-                    return redirect('home')
-        else:
-            messages.info(request, 'make sure you verify your password!')
+        if User.objects.filter(email=email).exists():
+            messages.info(request, 'email taken')
             return render(request, 'profile.html')
+        else:
+            users = User.objects.filter(username=username)
+                
+            for user in users:
+                if first_name != "":
+                    user.first_name = first_name
+                if last_name != "":
+                    user.last_name = last_name
+                if email != "":
+                        user.email = email
+                    
+                user.save()
+                    
+                
+                return redirect('home')
+        
     else:
         return render(request, 'profile.html')

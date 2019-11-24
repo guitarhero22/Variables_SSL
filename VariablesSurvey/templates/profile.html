@@ -6,16 +6,14 @@
 {% if user.is_authenticated %}
         <form action="profile" method="post">
             {% csrf_token %}
-            <input type="text" name="Firstname" placeholder="firstname"><br>
-            <input type="text" name="Lastname" placeholder="lastname"><br>
-            <input type="email" name="Email" placeholder="email-id"><br>
-            <input type="password" name="opassword" placeholder="old password"><br>
-            <input type="password" name="password" placeholder="new password"><br>
-            <input type="password" name="verify" placeholder="confirm"><br>
+            <input type="text" name="Firstname" placeholder="{{user.first_name}}"><br>
+            <input type="text" name="Lastname" placeholder="{{user.last_name}}"><br>
+            <input type="email" name="Email" placeholder="{{user.email}}"><br>
+            
             <input type="Submit">
         </form>
         <div>
-               
+                <h3>Fill all fields you want to change.
                 {%for message in messages%}
                 <h3>{{message}}</h3>
                 {%endfor%}
