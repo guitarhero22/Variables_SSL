@@ -1,0 +1,13 @@
+{% extends 'helios.html' %}
+
+{% block links %}
+{% endblock %}
+
+{% block login %}
+<form method="post" action="">
+  {% csrf_token %}
+  {{form_name}}
+  
+<button type='submit' name="Save">Save</button>
+</form>
+{% endblock %}

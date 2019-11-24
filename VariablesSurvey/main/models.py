@@ -8,15 +8,20 @@ class Form(models.Model):
     creator = models.ForeignKey(User, on_delete='CASCADE')
 
 class question(models.Model):
-    # form_id = models.ForeignKey(Form, on_delete='CASCADE')
-    q_name = models.CharField(max_length = 50)
+    form_id = models.ForeignKey(Form, on_delete='CASCADE')
     q_type = models.CharField(max_length = 50)
     d_type = models.CharField(max_length = 50)
-    options = models.BooleanField(default=False)
+    # options = models.BooleanField(default=False)
     visible = models.BooleanField(default=True)
-    content = models.TextField()
-    choices = models.TextField()
+    content = models.TextField(null=False)
     order = models.IntegerField()
+    max_length = models.IntegerField()
+
+class option(models.Model):
+    q_id = models.ForeignKey(question, on_delete='CASCADE')
+    opt_content = models.CharField(max_length = 100)
+    opt_type = models.CharField(max_length = 50)
+    opt_order = models.IntegerField()
 
 #
 # class single(question):

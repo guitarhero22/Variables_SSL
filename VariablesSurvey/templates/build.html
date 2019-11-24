@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block links %}
+<li><a href='/'>Done</a></li>
 <li>
 ADD
 <ul>
@@ -12,14 +13,24 @@ ADD
     <li><a href="/add_q/{{form_name}}/radio">Radio Type</a></li>
     <li><a href="/add_q/{{form_name}}/check">Check Box</a></li>
     <li><a href="/add_q/{{form_name}}/dropdwn">Drop Down</a></li>
-    <li><a href="/add_q/{{form_name}}/toggle">Toggle</a></li>
     <li><a href="/add_q/{{form_name}}/scale"">Scale</a></li>
 </ul>
 </li>
 {% endblock %}
+<table>
+<tr>
+  <th>Order</th>
+  <td>Type</td>
+  <td>Statement</td>
+</tr>
+{% for question in questions %}
+<tr>
+  <th>{{question.order}}</th>
+  <td>{{question.q_type}}</td>
+  <td>{{question.content}}</td>
+</tr>
+{% endfor %}
+</table>
 
 {% block login %}
-<table>
-
-</table>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import IntegrityError
-from .models import Form
+from .models import Form, question
 from django.db import models
 from django.http import HttpResponse
 # Create your views here.
@@ -85,10 +85,49 @@ def answer(request):
     pass
 
 def build(request, form_name):
-    return render(request, 'build.html', {'form_name':form_name})
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    form = Form.objects.get(form_name=form_name)
+    if not form.creator == request.user:
+        return HttpResponse('Cannot Edit This Form, Sorry ;-(')
+
+    quest = question.objects.filter(form_id=form.id).order_by('order')
+    return render(request, 'build.html', {'form_name':form_name, 'questions' : quest})
 
 def add_q(request, form_name, q_type):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    form = Form.objects.get(form_name=form_name)
+    if not form.creator == request.user:
+        return HttpResponse('Cannot Edit This Form, Sorry ;-(')
+
     if request.method == 'GET':
         return render(request, 'add_q.html', {'form_name':form_name, 'q_type':q_type})
     else:
+        form = Form.objects.get(form_name = form_name)
+        if q_type == 'single':
+            content = request.POST['content']
+            max_length = request.POST['max_length']
+            d_type = request.POST['d_type']
+
+            if content == "" or max_length == "":
+                messages.info(request, 'please fill all the fields')
+                return redirect('/add_q/' + form_name + '/' + q_type)
+
+            order = 1 + question.objects.filter(form_id=form.id).count()
+            quest = question(form_id = form.form_id, q_type = q_type, d_type = d_type, visible = True, content=content, max_length=int(max_length), order = order)
+            quest.save()
+
         return redirect('/build/' + form_name)
+
+
+def add_opt(request, q_id, opt_name):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    if request.method == 'GET':
+        return render(request, 'add_opt.html', {'q_id': q_id, 'opt_type': opt_type})
+    else:
+        pass
