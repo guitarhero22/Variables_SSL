@@ -5,15 +5,15 @@
   {% endblock %}
 
 {% block login %}
-<form action="create" method="post">
+<form action="deactivate" method="post">
     {% csrf_token %}
     <input type="text" name="form_name" placeholder="form_name"><br>
     <input type="text" name="form_code" placeholder="form_code"><br>
     <input type="Submit">
 </form>
 <div>
-    {% for message in messages %}
-    <h3>{{message}}</h3>
-    {%endfor%}
-</div>
+        {% for message in messages %}
+        <h3>{{message}}</h3>
+        {%endfor%}
+    </div>
 {% endblock %}

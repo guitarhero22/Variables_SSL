@@ -1,0 +1,19 @@
+{% extends 'helios.html' %}
+
+  {% block links %}
+  <li><a href='/'>Home</a></li>
+  {% endblock %}
+
+{% block login %}
+<form action="respond" method="post">
+    {% csrf_token %}
+    <input type="text" name="form_name" placeholder="form_name"><br>
+    <input type="text" name="form_code" placeholder="form_code"><br>
+    <input type="Submit">
+</form>
+<div>
+        {% for message in messages %}
+        <h3>{{message}}</h3>
+        {%endfor%}
+    </div>
+{% endblock %}
