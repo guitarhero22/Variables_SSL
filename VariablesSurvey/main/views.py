@@ -55,7 +55,11 @@ def deactivate(request):
 
 
 def home(request):
-    return render(request, 'index.html')
+	forms = Form.objects.filter(creator=request.user)
+	for form in forms:
+		messages.info(request, form.form_name)
+	return render(request, 'index.html')
+    
 
 
 def respond(request):

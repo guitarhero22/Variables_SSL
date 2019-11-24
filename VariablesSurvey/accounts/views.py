@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import auth, User
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from main.models import Form
 
 # Create your views here.
 
@@ -52,6 +53,9 @@ def register(request):
         return render(request, 'register.html')
 
 def home(request):
+    forms = Form.objects.filter(creator=request.user)
+    for form in forms:
+        messages.info(request, form.form_name)
     return render(request, 'index.html')
 
 def logout(request):
