@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db import IntegrityError
-from .models import Form, question
+from .models import Form, question, option
 from django.db import models
 from django.http import HttpResponse
 # Create your views here.
@@ -133,7 +133,7 @@ def add_q(request, form_name, q_type):
             quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=int(max_length), order = order)
             quest.save()
 
-        if q_type == radio:
+        if q_type == 'radio':
             content = request.POST['content']
 
             if content == "":
@@ -144,7 +144,7 @@ def add_q(request, form_name, q_type):
             quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=int(max_length), order = order)
             quest.save()
 
-            return redirect('/build/' + form_name)
+        return redirect('/build/' + form_name)
 
 def add_opt(request, q_id, opt_name):
     if not request.user.is_authenticated:
