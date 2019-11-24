@@ -53,7 +53,23 @@ def home(request):
 
 
 def respond(request):
-    pass
+	if request.method == 'POST':
+		form_name = request.POST['form_name']
+		form_code = request.POST['form_code']
+		form = Form.objects.filter(form_name=form_name, form_code=form_code, active=True)
+		if not form.exists():
+			messages.info(request, 'Form is not accessible')
+			return render(request, 'respond.html')
+		else:
+			for f in form:
+				message = 'You are viewing '+f.form_name+' created by '+str(f.creator)
+				messages.info(request, message)
+				return render(request, 'answer.html')
+
+	else:
+		return render(request, 'respond.html')
+		
+
 
 
 def answer(request):
