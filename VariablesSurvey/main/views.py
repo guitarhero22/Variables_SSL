@@ -141,7 +141,7 @@ def add_q(request, form_name, q_type):
                 return redirect('/add_q/' + form_name + '/' + q_type)
 
             order = 1 + question.objects.filter(form_id = form.id).count()
-            quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=int(max_length), order = order)
+            quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=0, order = order)
             quest.save()
 
         return redirect('/build/' + form_name)
