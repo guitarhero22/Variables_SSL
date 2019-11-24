@@ -107,6 +107,7 @@ def add_q(request, form_name, q_type):
         return render(request, 'add_q.html', {'form_name':form_name, 'q_type':q_type})
     else:
         form = Form.objects.get(form_name = form_name)
+        
         if q_type == 'single':
             content = request.POST['content']
             max_length = request.POST['max_length']
@@ -121,6 +122,30 @@ def add_q(request, form_name, q_type):
             quest.save()
 
         return redirect('/build/' + form_name)
+
+        if q_type == 'paragraph':
+            content = request.POST['content']
+            max_length = request.POST['max_length']
+
+			if content == "" or max_length == "":
+				messages.info(request, 'please fill all the fields')
+				return redirect('add_q/'+form_name+'/'+q_type)	
+				
+
+            order = 1 + question.objects.filter(form_id = form.id).count()
+            quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=int(max_length), order = order)
+            quest.save()
+
+        if q_type == radio:
+            content = request.POST['content']
+			
+			if content == "":
+                messages.info(request, 'please fill all the fields')
+                return redirect('/add_q/' + form_name + '/' + q_type)
+
+            order = 1 + question.objects.filter(form_id = form.id).count()
+            quest = question(form_id = form, q_type = q_type, d_type = "text", visible = True, content=content, max_length=int(max_length), order = order)
+            quest.save()
 
 
 def add_opt(request, q_id, opt_name):
