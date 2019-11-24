@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block login %}
-<form method="post" action="">
+<form method="post" action="/add_opt/{{q_id}}/{{opt_type}}">
   {% csrf_token %}
-  {{form_name}}
+  <input type="text" name="content" placeholder="option"></input>
   
 <button type='submit' name="Save">Save</button>
 </form>
