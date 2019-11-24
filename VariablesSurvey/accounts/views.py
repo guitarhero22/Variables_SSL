@@ -14,7 +14,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return render(request, 'index.html')
+            return redirect('/')
         else:
             messages.info(request, 'Invalid credentials')
             return redirect('login')
@@ -53,9 +53,10 @@ def register(request):
         return render(request, 'register.html')
 
 def home(request):
-    forms = Form.objects.filter(creator=request.user)
-    for form in forms:
-        messages.info(request, form.form_name)
+    if request.user.is_authenticated:
+        forms = Form.objects.filter(creator=request.user)
+        for form in forms:
+            messages.info(request, form.form_name)
     return render(request, 'index.html')
 
 def logout(request):
