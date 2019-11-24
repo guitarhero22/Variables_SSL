@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.db import IntegrityError
 from .models import Form
 from django.db import models
-
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -19,7 +19,7 @@ def create(request):
 			try:
 				form = Form(form_code=form_code, form_name=form_name, creator=creator)
 				form.save()
-				return render(request, 'build.html', {'form_code': form_code})
+				return render(request, 'build.html', {'form_name': form_name})
 			except IntegrityError as e:
 				messages.info(request, 'try another unique name')
 				return render(request, 'create.html')
@@ -75,8 +75,11 @@ def respond(request):
 def answer(request):
     pass
 
-def build(request):
-    return render(request, 'build.html')
+def build(request, form_name):
+    return render(request, 'build.html', {'form_name':form_name})
 
-def add_q(request, form_code, q_type):
-    return render(request, 'add_q.html')
+def add_q(request, form_name, q_type):
+    if request.method == 'GET':
+        return render(request, 'add_q.html', {'form_name':form_name, 'q_type':q_type})
+    else:
+        return redirect(request, 'build/form_name')

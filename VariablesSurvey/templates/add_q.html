@@ -4,5 +4,18 @@
 {% endblock %}
 
 {% block login %}
-  
+<form method='post' action='add_q/{{form_name}}/{{q_type}}'>
+<input type="text" name="q_name" placeholder="Question Name"><br>
+{% if q_type == "single" %}
+<input type="text" name="d_type" placeholder="Input Type"><br>
+{% elif q_type == 'paragraph' %}
+<input type="text" name="d_type" placeholder="Input Type"><br>
+{% elif q_type ==  'radio' %}
+{% elif q_type == 'check' %}
+{% elif q_type == 'dropdwn' %}
+{% elif q_type == 'scale' %}
+{% else %}
+{% endif %}
+<button type='submit' name="Save">Submit</button>
+</form>
 {% endblock %}
