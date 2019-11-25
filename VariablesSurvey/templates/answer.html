@@ -36,7 +36,7 @@
 {{question.content}}
 <br>
 {% for option in options %}
-<input type="checkbox" name="{{question.order}}-{{option.opt_order}}" value="options.opt_content">{{option.opt_content}}<br>
+<input type="checkbox" name="{{question.order}}" value="options.opt_content">{{option.opt_content}}<br>
 {% endfor %}
 
 {% endif %}
