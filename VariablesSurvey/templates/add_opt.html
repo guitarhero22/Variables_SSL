@@ -1,4 +1,4 @@
-{% extends 'helios.html' %}
+{% extends 'base.html' %}
 
 {% block links %}
 <li><a href="/build/{{form_name}}">Done</a></li>
@@ -6,10 +6,12 @@
 
 {% block login %}
 <form method="post" action="/add_opt/{{q_id}}/{{opt_type}}/">
+  <div class="form-group">
   {% csrf_token %}
-  <input type="text" name="content" placeholder="option"></input>
+  <input type="text" name="content" placeholder="option" class="form-control" required></input>
 
-<button type='submit' name="Save">Save</button>
+<button type="submit" class="btn btn-default">Save</button>
+</div>
 </form>
 
 <table>

@@ -1,32 +1,36 @@
-{% extends 'helios.html' %}
+{% extends 'base.html' %}
 
+{% if user.is_authenticated %}
   {% block links %}
-  {% if user.is_authenticated %}
-  <li>
-    <a href="profile">Edit your info, {{user.first_name}}</a>
-  </li>
   <li>
   <a href="create">Create form</a>
   </li>
-  <a href="deactivate">Deactivate form</a>
+  <li>
+    <a href="deactivate">Deactivate form</a>
+  </li>
   <li>
   </li>
   <li>
     <a href="respond">Access form</a>
   </li>
   <li>
-    <a href="change_password">Change password</a>
+    <a href="profile">Edit your info</a>
   </li>
   <li>
-    <a href="logout">Logout</a>
+    <a href="change_password">Change password</a>
   </li>
-  {% endif %}
-
   {% endblock %}
+
+{% block links_right %}
+  <li>
+          <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+  </li>
+{% endblock %}
+  {% endif %}
 
 {% block login %}
     {% if user.is_authenticated %}
-        <h3 style="color:yellow">Hello, {{user.first_name}}</h3><br>
+        <h3>Hello, {{user.first_name}}</h3><br>
         <!-- <a href="profile">Edit your info, {{user.first_name}}</a>
         <a href="create">Create form</a><br>
         <a href="deactivate">Deactivate form</a><br>
@@ -36,11 +40,15 @@
 
         <a href="logout">Logout</a><br><br> -->
 
-        <h3 style="color:yellow">Your forms:</h3><br>
+        <h3>Your forms:</h3><br>
         <table style="width:30vw; padding:5pt">
+          <tr>
+            <td><u><h4>Form Name</h4></u></td>
+            <td><u><h4>Code</h4></u></td>
+          </tr>
         {% for form in forms %}
         <tr>
-        <td><h4 style="color:yellow">{{form.form_name}}</h4></td><td><h4 style="color:yellow">{{form.form_code}}</h4></td></tr>
+        <td><h4>{{form.form_name}}</h4></td><td><h4>{{form.form_code}}</h4></td></tr>
         {% endfor %}
         </table>
 

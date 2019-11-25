@@ -49,14 +49,19 @@ def deactivate(request):
 			for f in form:
 				f.active = False
 				f.save()
-			return render(request, 'index.html')
+			return redirect('home')
 
 	else:
 		return render(request, 'deactivate.html')
 
 
 def home(request):
-    return render(request, 'index.html')
+    if request.user.is_authenticated:
+        forms = Form.objects.filter(creator=request.user)
+        return render(request, 'index.html', {'forms': forms})
+    else:
+        return redirect('login')
+
 
 
 def respond(request):
@@ -72,8 +77,8 @@ def respond(request):
 			return render(request, 'respond.html')
 		else:
 			for f in form:
-				
-                
+
+
 				return redirect('/answer/' + form_name)
 
 	else:

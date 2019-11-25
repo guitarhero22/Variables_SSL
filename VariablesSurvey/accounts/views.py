@@ -55,7 +55,9 @@ def register(request):
 def home(request):
     if request.user.is_authenticated:
         forms = Form.objects.filter(creator=request.user)
-    return render(request, 'index.html', {'forms': forms})
+        return render(request, 'index.html', {'forms': forms})
+    else:
+        return redirect('login')
 
 def logout(request):
     auth.logout(request)

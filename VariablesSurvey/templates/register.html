@@ -1,17 +1,23 @@
-{% extends 'helios.html' %}
+{% extends 'base.html' %}
 {% block links %}
 <li><a href="/">Go back</a></li>
 {% endblock %}
+
+{% block links_right %}
+{% endblock %}
+
 {% block login %}
         <form action="register" method="post">
             {% csrf_token %}
-            <input type="text" name="Firstname" placeholder="firstname"><br>
-            <input type="text" name="Lastname" placeholder="lastname"><br>
-            <input type="email" name="Email" placeholder="email-id"><br>
-            <input type="text" name="username" placeholder="username"><br>
-            <input type="password" name="password" placeholder="password"><br>
-            <input type="password" name="verify" placeholder="verify"><br>
-            <input type="Submit">
+            <div class="form-group">
+            <input type="text" name="Firstname" placeholder="firstname" class="form-control" required><br>
+            <input type="text" name="Lastname" placeholder="lastname" class="form-control" required><br>
+            <input type="email" name="Email" placeholder="email-id" class="form-control" required><br>
+            <input type="text" name="username" placeholder="username" class="form-control" required><br>
+            <input type="password" name="password" placeholder="password" class="form-control" required><br>
+            <input type="password" name="verify" placeholder="verify" class="form-control" required><br>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
         </form>
         <div>
                 {%for message in messages%}

@@ -1,13 +1,18 @@
-{% extends 'helios.html' %}
+{% extends 'base.html' %}
 
 {% block links %}
 {% endblock %}
 
+{% block links_right %}
+{% endblock %}
+
 {% block login %}
 <form method="post" action="">
+  <div class="form-group">
+
   {% csrf_token %}
   <h2 style="color:yellow">{{form_name}}</h2>
-<input type="text" name="content" placeholder="Question goes here..."><br>
+<input type="text" name="content" placeholder="Question goes here..." class="form-control"><br>
 
 {% if q_type == "single" %}
 Data Type:<select name="d_type">
@@ -15,10 +20,10 @@ Data Type:<select name="d_type">
 <option value="int">Integer</option>
 <option value="float">Float</option>
 </select><br>
-Maximum Length:<input type="text" name="max_length" placeholder="50" value="50"><br>
+Maximum Length:<input type="text" name="max_length" placeholder="50" value="50" class="form-control"><br>
 
 {% elif q_type == 'paragraph' %}
-Maximum Length:<input type="text" name="max_length" placeholder="500" value="500"><br>
+Maximum Length:<input type="text" name="max_length" placeholder="500" value="500" class="form-control"><br>
 
 {% elif q_type ==  'radio' %}
 Add options after saving question
@@ -31,12 +36,13 @@ Add options after saving question
 <br>
 {% elif q_type == 'scale' %}
 Start:
-<input type="text" name="start" value="1"><br>
+<input class="form-control" type="text" name="start" value="1"><br>
 End:
-<input type="text" name="end" value="10"><br>
+<input class="form-control" type="text" name="end" value="10"><br>
 {% else %}
 {% endif %}
 <button type='submit' name="Save">Save</button>
+</div>
 </form>
 {% for message in messages %}
 <br>

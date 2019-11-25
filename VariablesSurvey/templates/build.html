@@ -1,4 +1,4 @@
-{% extends 'helios.html' %}
+{% extends 'base.html' %}
 
 {% load static %}
 
@@ -8,9 +8,10 @@
 
 {% block links %}
 <li><a href='/'>Done</a></li>
-<li>
-ADD
-<ul>
+<li class="dropdown">
+<a class="dropdown-toggle" data-toggle="dropdown" href="">
+ADD</a>
+<ul class="dropdown-menu">
     <li><a href="/add_q/{{form_name}}/single">Single Line</a></li>
     <li><a href="/add_q/{{form_name}}/paragraph">Paragraph</a></li>
     <li><a href="/add_q/{{form_name}}/radio">Radio Type</a></li>
@@ -20,6 +21,10 @@ ADD
 </ul>
 </li>
 {% endblock %}
+
+{% block links_right %}
+{% endblock %}
+
 {% block login %}
 <table>
 <tr>
