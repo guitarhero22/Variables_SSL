@@ -29,7 +29,8 @@ class response(models.Model):
     single = models.CharField(default = "")
     single_int = models.IntegerField(default=0)
     para = models.TextField(default="")
-    option = models.IntegerField(default=0)
+    option = models.CharField(default="", choices=[])
+    multi_option = models.CharField(default="", choices=[])
 
 #
 # class single(question):
