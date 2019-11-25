@@ -86,14 +86,50 @@ def answer(request, form_name):
     if not request.user.is_authenticated:
         return redirect('login')
 
-    form = Form.objects.get(form_name=form_name)
-    form_list = []
-    question_set = question.objects.filter(form_id=form).order_by('order')
-    num = question.objects.filter(form_id=form).count()
-    option_set = []
-    for q in question_set:
-        opt = option.objects.filter(q_id=q)
-        option_set += [(q, opt)]
+    if request.method == 'POST':
+        user=request.user
+        form = Form.objects.get(form_name=form_name)
+        question_set = question.objects.filter(form_id=form).order_by('order')
+        for q in question_set:
+            if q.q_type == "single":
+                if q.d_type == "int":
+                    resp = int(request.POST[str(q.order)])
+                    r=response(user=user, q_id = q, single_int=resp)
+                    r.save()
+                else:
+                    resp = request.POST[str(q.order)]
+                    r=response(user=user,q_id=q, single=resp)
+                    r.save()
+
+            elif q.q_type == "para":
+                resp = request.POST[str(q.order)]
+                r=response(user=user,q_id=q,para=resp)
+                r.save()
+
+            elif q.q_type == "dropdwn" or q.q_type == "radio":
+                resp = request.POST[str(q.order)]
+                r=response(user=user,q_id=q,options=resp)
+                r.save()
+
+            elif q.q_type == "check":
+                respl = request.POST.getlist(str(q.order))
+                for resp in respl:
+                    r = response(user=user,q_id=q,multi_option=resp)
+                    r.save()
+
+        return request.redirect('home')
+
+
+
+    else:
+        form = Form.objects.get(form_name=form_name)
+        form_list = []
+        question_set = question.objects.filter(form_id=form).order_by('order')
+        num = question.objects.filter(form_id=form).count()
+        option_set = []
+        for q in question_set:
+            opt = option.objects.filter(q_id=q)
+            option_set += [(q, opt)]
 
     return render(request, 'answer.html',  {'tuple' : option_set})
 
