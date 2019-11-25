@@ -23,6 +23,14 @@ class option(models.Model):
     opt_type = models.CharField(max_length = 50)
     opt_order = models.IntegerField()
 
+class response(models.Model):
+    user = models.ForeignKey(User, on_delete='CASCADE')
+    q_id = models.ForeignKey(question, on_delete='CASCADE')
+    single = models.CharField(default = "")
+    single_int = models.IntegerField(default=0)
+    para = models.TextField(default="")
+    option = models.IntegerField(default=0)
+
 #
 # class single(question):
 #     pass
