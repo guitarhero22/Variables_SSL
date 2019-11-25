@@ -1,15 +1,14 @@
 # Variables_SSL
 CS251 project
 
-I'm just a poor boy,
-I deserve no sympathy,
-'Cause I'm easy come,
-Easy go,
-Little high, little low,
-Anyway the wind blows
-Doesn't really matter to me.
+To run:
 
-HE'S JUST A POOR BOY
-FROM A POOR FAMILY
-SPARE HIM HIS LIFE
-FROM THIS MONSTROSITY.
+The entire code will be contained in Variables_SSL directory.
+
+Run /VariablesSurvery/manage.py makemigrations
+Then /VariablesSurvery/manage.py migrate
+Then /VariablesSurvery/manage.py runserver
+
+The server will run on the local port.
+
+Visit http://127.0.0.1:8000 on your browser to see! 
