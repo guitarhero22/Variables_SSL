@@ -1,5 +1,6 @@
 from django.forms import ModelForm
-from models import question, option, response
+from django import forms
+from .models import question, option, response
 
 class single(ModelForm):
     class Meta:
@@ -11,12 +12,12 @@ class para(ModelForm):
         model = response
         fields = ['para']
 
-class option(ModelForm):
+class options(ModelForm):
     class Meta:
         model = response
-        fields = ['option']
+        fields = ['options']
         choices = []
-        widgets = { 'option' : forms.Select(choices = choices, attrs={'class':'form-control'})}
+        widgets = { 'options' : forms.Select(choices = choices, attrs={'class':'form-control'})}
 
 class single_int(ModelForm):
     class Meta:

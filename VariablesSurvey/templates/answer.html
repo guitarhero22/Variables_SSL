@@ -5,9 +5,10 @@
   {% endblock %}
 
 {% block login %}
-<div>
-    {% for message in messages %}
-    <h3>{{message}}</h3>
-    {%endfor%}
-</div>
+{% for form in forms %}
+<form action="" method="post" >
+{% csrf_token %}
+{{ form.as_p }}
+</form>
+{% endfor %}
 {% endblock %}
