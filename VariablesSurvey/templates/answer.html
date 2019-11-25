@@ -6,21 +6,22 @@
 
 {% block login %}
 <form method="post" action="">
+  <div class="form-group">
 {% csrf_token %}
 {% for question in questions %}
 {% if question.q_type == "single" %}
-<h3>{{question.content}}</h3><input type="text" name="{{question.order}}" value="">
-{% elif question.q_type == "para" %}
-<h3>{{question.content}}</h3><input type="textarea" name="{{question.order}}" value="">
+<h4>{{question.content}}</h4><input type="text" name="{{question.order}}" >
+{% elif question.q_type == "paragraph" %}
+<h4>{{question.content}}</h4><textarea name="{{question.order}}" ></textarea>
 {% elif question.q_type == "radio" %}
-<h3>{{question.content}}</h3>
+<h4>{{question.content}}</h4>
 {% for option in options.question.order %}
 {{question.order}}
 <input type="radio" name="{{question.order}}" value="options.opt_content">{{option.opt_content}}<br>
 {% endfor %}
 {% elif question.q_type == "dropdwn" %}
 {{question.order}}
-<h3>{{question.content}}</h3>
+<h4>{{question.content}}</h4>
 <select name="{{question.order}}">
 {% for option in options.question.order %}
 {{question.order}}
@@ -33,5 +34,6 @@
 {% endfor %}
 {% endif %}
 {% endfor %}
+</div>
 </form>
 {% endblock %}

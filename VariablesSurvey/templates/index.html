@@ -5,11 +5,8 @@
 
 {% block login %}
     {% if user.is_authenticated %}
-        <h3>Hello, {{user.first_name}}</h3><br>
-        <h3>Your forms:</h3>
-        {% for message in messages %}
-        <h4>{{message}}</h4>
-        {% endfor %}
+        <h3 style="color:yellow">Hello, {{user.first_name}}</h3><br>
+
         <a href="profile">Edit your info, {{user.first_name}}</a><br>
         <a href="create">Create form</a><br>
         <a href="deactivate">Deactivate form</a><br>
@@ -17,11 +14,19 @@
 
         <a href="change_password">Change password</a><br>
 
-        <a href="logout">Logout</a><br>
+        <a href="logout">Logout</a><br><br>
+
+        <h3 style="color:yellow">Your forms:</h3>
+        <table style="border:solid black 1pt">
+        {% for message in messages %}
+        <tr>
+        <h4 style="color:yellow">{{message}}</h4></tr>
+        {% endfor %}
+        </table>
 
         {%else%}
         <a href="login">Login</a><br>
         <a href="register">Register</a><br>
         {% endif %}
-      
+
 {% endblock %}

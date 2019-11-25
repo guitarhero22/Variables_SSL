@@ -73,16 +73,16 @@ def profile(request):
         first_name = request.POST['Firstname']
         last_name = request.POST['Lastname']
         username = request.user
-        
+
         email = request.POST['Email']
-        
-            
+
+
         if User.objects.filter(email=email).exists():
             messages.info(request, 'email taken')
             return render(request, 'profile.html')
         else:
             users = User.objects.filter(username=username)
-                
+
             for user in users:
                 if first_name != "":
                     user.first_name = first_name
@@ -90,12 +90,12 @@ def profile(request):
                     user.last_name = last_name
                 if email != "":
                         user.email = email
-                    
+
                 user.save()
-                    
-                
+
+
                 return redirect('home')
-        
+
     else:
         return render(request, 'profile.html')
 
@@ -107,7 +107,7 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
-            
+
             return redirect('home')
         else:
             pass
@@ -116,4 +116,3 @@ def change_password(request):
     return render(request, 'change_password.html', {
         'form': form
     })
-
