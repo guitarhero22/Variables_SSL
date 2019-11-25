@@ -8,36 +8,37 @@
 <form method="post" action="">
   <div class="form-group">
 {% csrf_token %}
-{% for question in questions %}
+{% for question, options in tuple %}
 {% if question.q_type == "single" %}
-<<<<<<< HEAD
+
 <h4>{{question.content}}</h4><input type="text" name="{{question.order}}" >
+
 {% elif question.q_type == "paragraph" %}
 <h4>{{question.content}}</h4><textarea name="{{question.order}}" ></textarea>
-=======
-<h3>{{question.content}}</h3><input type="text" name="{{question.order}}" value="">
-{% elif question.q_type == "para" %}
-<h3>{{question.content}}</h3><input type="paragraph" name="{{question.order}}" value="">
->>>>>>> ec93b70d49bf6dfba95668b1a6840acaead3c052
+
 {% elif question.q_type == "radio" %}
 <h4>{{question.content}}</h4>
-{% for option in options.question.order %}
-{{question.order}}
+{% for option in options %}
 <input type="radio" name="{{question.order}}" value="options.opt_content">{{option.opt_content}}<br>
 {% endfor %}
+
 {% elif question.q_type == "dropdwn" %}
-{{question.order}}
 <h4>{{question.content}}</h4>
 <select name="{{question.order}}">
-{% for option in options.question.order %}
+{% for option in options %}
 {{question.order}}
 <option value="{{option.opt_content}}">{{option.opt_content}}</option>
 {% endfor %}
 </select>
-{% elif question.q_type == "checkbox" %}
-{% for option in options.question.order %}
-<input type="radio" name="{{question.order}}-{{option.opt_order}}" value="options.opt_content">{{option.opt_content}}<br>
+
+{% elif question.q_type == "check" %}
+<br>
+{{question.content}}
+<br>
+{% for option in options %}
+<input type="checkbox" name="{{question.order}}-{{option.opt_order}}" value="options.opt_content">{{option.opt_content}}<br>
 {% endfor %}
+
 {% endif %}
 {% endfor %}
 </div>

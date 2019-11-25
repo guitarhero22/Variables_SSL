@@ -93,9 +93,9 @@ def answer(request, form_name):
     option_set = []
     for q in question_set:
         opt = option.objects.filter(q_id=q)
-        option_set += [opt]
+        option_set += [(q, opt)]
 
-    return render(request, 'answer.html', {'questions': question_set, 'options' : option_set, 'num': num})
+    return render(request, 'answer.html',  {'tuple' : option_set})
 
 def build(request, form_name):
     if not request.user.is_authenticated:
