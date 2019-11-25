@@ -26,11 +26,11 @@ class option(models.Model):
 class response(models.Model):
     user = models.ForeignKey(User, on_delete='CASCADE')
     q_id = models.ForeignKey(question, on_delete='CASCADE')
-    single = models.CharField(default = "")
+    single = models.CharField(default = "", max_length=100)
     single_int = models.IntegerField(default=0)
     para = models.TextField(default="")
-    option = models.CharField(default="", choices=[])
-    multi_option = models.CharField(default="", choices=[])
+    options = models.CharField(default="", choices=[], max_length=100)
+    multi_option = models.CharField(default="", choices=[], max_length=100)
 
 #
 # class single(question):

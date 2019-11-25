@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from .models import Form, question, option
 from django.db import models
 from django.http import HttpResponse
-from forms import *
+from .forms import *
 # Create your views here.
 
 
@@ -85,6 +85,7 @@ def respond(request):
 def answer(request, form_name):
     if not request.user.is_authenticated:
         return redirect('login')
+
     form = Form.objects.get(form_name=form_name)
     form_list = []
     question_set = question.objects.filter(form_id=form).order_by('order')
@@ -93,6 +94,7 @@ def answer(request, form_name):
         choices = []
         for c in choices_query:
             choices+=[(str(c.opt_order), c.opt_content)]
+
         if ques.q_type == 'single':
             if ques.d_type == 'text':
                 f = single()
@@ -105,13 +107,15 @@ def answer(request, form_name):
             form_list +=[f]
         elif ques.q_type == 'radio':
             f = option()
+            f.choices = choices
             form_list += [f]
-        elif ques.q_type == 'check':
-            f = multi_option()
-            form_list += [f]
-        elif ques.q_type == 'dropdwn':
-            f = option()
-            form_list += [f]
+        # elif ques.q_type == 'check':
+        #     f = multi_option()
+        #     form_list += [f]
+        # elif ques.q_type == 'dropdwn':
+        #     f = option()
+        #     form_list += [f]
+    return render(request, 'answer.html', {'forms' : form_list})
 
 
 def build(request, form_name):
