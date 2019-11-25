@@ -16,7 +16,7 @@
   <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+      <a class="navbar-brand" href="#">{% block formName %}{% endblock %}</a>
     </div>
     <ul class="nav navbar-nav">
       {% block links %}
@@ -31,6 +31,7 @@
 
   <div class="container">
   {% block login %}
+
   {% endblock %}
   </div>
 </body>
