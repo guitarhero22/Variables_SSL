@@ -33,11 +33,11 @@
 
         <a href="logout">Logout</a><br><br> -->
 
-        <h3 style="color:yellow">Your forms:</h3>
-        <table style="border:solid black 1pt">
-        {% for message in messages %}
+        <h3 style="color:yellow">Your forms:</h3><br>
+        <table style="width:30vw; padding:5pt">
+        {% for form in forms %}
         <tr>
-        <h4 style="color:yellow">{{message}}</h4></tr>
+        <td><h4 style="color:yellow">{{form.form_name}}</h4></td><td><h4 style="color:yellow">{{form.form_code}}</h4></td></tr>
         {% endfor %}
         </table>
 
