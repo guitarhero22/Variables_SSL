@@ -11,7 +11,7 @@
 {% if question.q_type == "single" %}
 <h3>{{question.content}}</h3><input type="text" name="{{question.order}}" value="">
 {% elif question.q_type == "para" %}
-<h3>{{question.content}}</h3><input type="textarea" name="{{question.order}}" value="">
+<h3>{{question.content}}</h3><input type="paragraph" name="{{question.order}}" value="">
 {% elif question.q_type == "radio" %}
 <h3>{{question.content}}</h3>
 {% for option in options.question.order %}
