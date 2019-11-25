@@ -54,6 +54,14 @@ ROOT_URLCONF = 'VariablesSurvey.urls'
 
 TEMPLATES = [
     {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+   'DIRS': [],
+   'APP_DIRS': True,
+   'OPTIONS': {
+     'environment': 'your-app.jinja2.environment'
+   },
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
