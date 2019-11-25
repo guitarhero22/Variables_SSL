@@ -73,6 +73,7 @@ def respond(request):
 		else:
 			for f in form:
 				
+                
 				return redirect('/answer/' + form_name)
 
 	else:
