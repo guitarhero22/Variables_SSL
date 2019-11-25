@@ -74,7 +74,7 @@ def respond(request):
 			for f in form:
 				message = 'You are viewing '+f.form_name+' created by '+str(f.creator)
 				messages.info(request, message)
-				return render(request, 'answer.html')
+				return redirect('answer')
 
 	else:
 		return render(request, 'respond.html')
