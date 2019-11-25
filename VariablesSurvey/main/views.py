@@ -81,8 +81,13 @@ def respond(request):
 
 
 
-def answer(request):
-    pass
+def answer(request, form_name):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    form = Form.objects.get(form_name=form_name)
+    question_set = question.objects.filter(form_id=form)
+    for ques in question_set:
+        pass
 
 def build(request, form_name):
     if not request.user.is_authenticated:
