@@ -89,34 +89,13 @@ def answer(request, form_name):
     form = Form.objects.get(form_name=form_name)
     form_list = []
     question_set = question.objects.filter(form_id=form).order_by('order')
-    for ques in question_set:
-        choices_query = option.objects.filter(q_id=ques).order_by('opt_order')
-        choices = []
-        for c in choices_query:
-            choices+=[(str(c.opt_order), c.opt_content)]
+    num = question.objects.filter(form_id=form).count()
+    option_set = []
+    for q in question_set:
+        opt = option.objects.filter(q_id=q)
+        option_set += [opt]
 
-        if ques.q_type == 'single':
-            if ques.d_type == 'text':
-                f = single()
-                form_list += [f]
-            if ques.d_type == 'int':
-                f = single_int()
-                form_list += [f]
-        elif ques.q_type == 'para':
-            f = para()
-            form_list +=[f]
-        elif ques.q_type == 'radio':
-            f = option()
-            f.choices = choices
-            form_list += [f]
-        # elif ques.q_type == 'check':
-        #     f = multi_option()
-        #     form_list += [f]
-        # elif ques.q_type == 'dropdwn':
-        #     f = option()
-        #     form_list += [f]
-    return render(request, 'answer.html', {'forms' : form_list})
-
+    return render(request, 'answer.html', {'questions': question_set, 'options' : option_set, 'num': num})
 
 def build(request, form_name):
     if not request.user.is_authenticated:

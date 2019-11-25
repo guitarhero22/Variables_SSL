@@ -1,14 +1,37 @@
-{% extends 'helios.html' %}
+{% extends 'base.html' %}
 
   {% block links %}
   <li><a href='/'>Home (abort!)</a></li>
   {% endblock %}
 
 {% block login %}
-{% for form in forms %}
-<form action="" method="post" >
+<form method="post" action="">
 {% csrf_token %}
-{{ form.as_p }}
-</form>
+{% for question in questions %}
+{% if question.q_type == "single" %}
+<h3>{{question.content}}</h3><input type="text" name="{{question.order}}" value="">
+{% elif question.q_type == "para" %}
+<h3>{{question.content}}</h3><input type="textarea" name="{{question.order}}" value="">
+{% elif question.q_type == "radio" %}
+<h3>{{question.content}}</h3>
+{% for option in options.question.order %}
+{{question.order}}
+<input type="radio" name="{{question.order}}" value="options.opt_content">{{option.opt_content}}<br>
 {% endfor %}
+{% elif question.q_type == "dropdwn" %}
+{{question.order}}
+<h3>{{question.content}}</h3>
+<select name="{{question.order}}">
+{% for option in options.question.order %}
+{{question.order}}
+<option value="{{option.opt_content}}">{{option.opt_content}}</option>
+{% endfor %}
+</select>
+{% elif question.q_type == "checkbox" %}
+{% for option in options.question.order %}
+<input type="radio" name="{{question.order}}-{{option.opt_order}}" value="options.opt_content">{{option.opt_content}}<br>
+{% endfor %}
+{% endif %}
+{% endfor %}
+</form>
 {% endblock %}
