@@ -222,3 +222,20 @@ def add_opt(request, q_id, opt_type):
         optio = option(q_id=questio, opt_content=opt_content, opt_type=opt_type, opt_order=order)
         optio.save()
         return redirect('/add_opt/'+str(q_id)+'/'+opt_type+'/')
+
+def see(request, form_name):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    form = Form.objects.get(form_name=form_name)
+    if not form.creator == request.user:
+        return HttpResponse('Cannot See The Responses, Sorry :-( ')
+
+    quest = question.objects.filter(form_id=form).order_by('order')
+    tuple = []
+
+    for q in quest:
+        resp = response.objects.filter(q_id=q)
+        tuple += [(q, resp)]
+
+    return render(request, 'see.html', {'tuple': tuple})

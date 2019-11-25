@@ -14,6 +14,7 @@ urlpatterns = [
     path('add_q/<form_name>/<q_type>/', views.add_q, name='add_q'),
     path('/add_q/<form_name>/<q_type>/', views.add_q, name='add_q'),
     path('/add_opt/<q_id>/<opt_type>/', views.add_opt, name='add_opt'),
-    path('add_opt/<q_id>/<opt_type>/', views.add_opt, name='add_opt')
+    path('add_opt/<q_id>/<opt_type>/', views.add_opt, name='add_opt'),
+    path('see/<form_name>', views.see, name='see'),
 
 ]

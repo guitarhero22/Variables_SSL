@@ -48,7 +48,7 @@
           </tr>
         {% for form in forms %}
         <tr>
-        <td><h4>{{form.form_name}}</h4></td><td><h4>{{form.form_code}}</h4></td></tr>
+        <td><a href="see/{{form.form_name}}"><h4>{{form.form_name}}</h4></a></td><td><h4>{{form.form_code}}</h4></td></tr>
         {% endfor %}
         </table>
 

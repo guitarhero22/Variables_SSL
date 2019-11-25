@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/build.css' %}">
+{% endblock %}
+
+{% block links %}
+<li><a href='/'>Done</a></li>
+{% endblock %}
+
+{% block links_right %}
+{% endblock %}
+
+
+{% block login %}
+
+{% for question, resp in tuple %}
+
+{% if question.q_type == "single" %}
+<h3>{{question.content}}</h3>
+<table style="width:60vw">
+  <tr>
+    <th>User</th><th>Response</th>
+  </tr>
+  {% for r in resp %}
+  <tr>
+    <td>{{r.user.username}}</td><td>{{r.single}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+{% elif question.q_type == "paragraph" %}
+<h3>{{question.content}}</h3>
+<table style="width:60vw">
+  <tr>
+    <th>User</th><th>Response</th>
+  </tr>
+  {% for r in resp %}
+  <tr>
+    <td>{{r.user.username}}</td><td>{{r.para}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+{% elif question.q_type == "radio" %}
+<h3>{{question.content}}</h3>
+<table style="width:60vw">
+  <tr>
+    <th>User</th><th>Response</th>
+  </tr>
+  {% for r in resp %}
+  <tr>
+    <td>{{r.user.username}}</td><td>{{r.options}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+
+{% elif question.q_type == "dropdwn" %}
+<h3>{{question.content}}</h3>
+<table style="width:60vw">
+  <tr>
+    <th>User</th><th>Response</th>
+  </tr>
+  {% for r in resp %}
+  <tr>
+    <td>{{r.user.username}}</td><td>{{r.options}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% elif question.q_type == "check" %}
+<h3>{{question.content}}</h3>
+<table style="width:60vw">
+  <tr>
+    <th>User</th><th>Response</th>
+  </tr>
+  {% for r in resp %}
+  <tr>
+    <td>{{r.user.username}}</td><td>{{r.multi_options}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}
