@@ -1,6 +1,7 @@
 {% extends 'helios.html' %}
 
   {% block links %}
+  {% if user.is_authenticated %}
   <li>
     <a href="profile">Edit your info, {{user.first_name}}</a>
   </li>
@@ -19,6 +20,8 @@
   <li>
     <a href="logout">Logout</a>
   </li>
+  {% endif %}
+
   {% endblock %}
 
 {% block login %}
